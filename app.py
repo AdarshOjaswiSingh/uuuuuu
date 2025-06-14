@@ -179,17 +179,18 @@ particles_js = """<!DOCTYPE html>
 st.set_page_config(page_title="Exifa.net", page_icon="✨", layout="wide")
 
 welcome_messages = [
-    "Hello! I'm Exifa, an AI assistant designed to make image metadata meaningful. Ask me anything!",
-    "Hi! I'm Exifa, an AI-powered assistant for extracting and explaining EXIF data. How can I help you today?",
-    "Hey! I'm Exifa, your AI-powered guide to understanding the metadata in your images. What would you like to explore?",
-    "Hi there! I'm Exifa, an AI-powered tool built to help you make sense of your image metadata. How can I help you today?",
-    "Hello! I'm Exifa, an AI-driven tool designed to help you understand your images' metadata. What can I do for you?",
-    "Hi! I'm Exifa, an AI-driven assistant designed to make EXIF data easy to understand. How can I help you today?",
-    "Welcome! I'm Exifa, an intelligent AI-powered tool for extracting and explaining EXIF data. How can I assist you today?",
-    "Hello! I'm Exifa, your AI-powered guide for understanding image metadata. Ask me anything!",
-    "Hi! I'm Exifa, an intelligent AI assistant ready to help you understand your images' metadata. What would you like to explore?",
-    "Hey! I'm Exifa, an AI assistant for extracting and explaining EXIF data. How can I help you today?",
+    "Hello! I'm your AI Career Guide, here to help you discover the right career path based on your interests. Just tell me a bit about yourself!",
+    "Hi! I'm your intelligent career assistant. Share your goals or a conversation, and I’ll recommend a suitable career path for you.",
+    "Hey there! I help match your passions and skills to the best career paths. Ready to explore your future?",
+    "Hi! I'm your AI-powered career mentor. Describe your interests or paste a conversation, and I’ll guide you toward the right career!",
+    "Welcome! I'm your smart career guide. Tell me what you like or share a chat, and I’ll suggest paths that fit you.",
+    "Hello! I'm here to analyze your interests and traits to recommend ideal career paths. Let's find what suits you best!",
+    "Hi there! I use AI to understand your personality, skills, and goals, and recommend the most fitting career options. Ready when you are!",
+    "Hey! I specialize in mapping your passions to real-world careers. Describe what excites you and let's get started!",
+    "Hi! I'm your personalized AI career advisor. Share a conversation or your interests, and I’ll help guide your journey.",
+    "Hello! Ready to explore careers that match your unique profile? Just describe yourself or paste a conversation, and I’ll take care of the rest.",
 ]
+
 
 message = random.choice(welcome_messages)
 
