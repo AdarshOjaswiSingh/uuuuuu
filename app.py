@@ -229,7 +229,7 @@ def download_image(data):
     st.download_button(
         label="⇩ Download Image",
         data=data,
-        file_name="image_no_exif.jpg",
+        file_name="image/app.jpg",
         mime="image/jpeg",
     )
 
@@ -294,7 +294,7 @@ with st.sidebar:
     with expander:
 
         image_url = st.text_input(
-            "Enter image URL for EXIF analysis:",
+            "Enter image URL for analysis:",
             key="image_url",
             on_change=clear_files,
             value=st.session_state.image_url,
@@ -315,36 +315,34 @@ with st.sidebar:
         if uploaded_files is not None:
             st.session_state["uploaded_files"] = uploaded_files
     expander = st.expander("⚒ Model Configuration")
-    with expander:
+    with st.expander("🔐 API Key & Model Settings", expanded=False):
+    # Check for key in st.secrets first
+    if "OPENAI_API_KEY" in st.secrets:
+        openai_api = st.secrets["OPENAI_API_KEY"]
+    else:
+        # Prompt user to enter API key
+        openai_api = st.text_input("Enter your OpenAI API key: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", type="password")
+        if not (openai_api.startswith("sk-") and len(openai_api) > 20):
+            st.warning("Please enter a valid OpenAI API key.", icon="⚠️")
+            st.markdown(
+                "**Don't have an API key?** [Get yours here](https://platform.openai.com/account/api-keys)"
+            )
 
-        if "REPLICATE_API_TOKEN" in st.secrets:
-            replicate_api = st.secrets["REPLICATE_API_TOKEN"]
-        else:
-            replicate_api = st.text_input("Enter Replicate API token:", type="password")
-            if not (replicate_api.startswith("r8_") and len(replicate_api) == 40):
-                st.warning("Please enter your Replicate API token.", icon="⚠️")
-                st.markdown(
-                    "**Don't have an API token?** Head over to [Replicate](https://replicate.com/account/api-tokens) to sign up for one."
-                )
-        os.environ["REPLICATE_API_TOKEN"] = replicate_api
-        st.subheader("Adjust model parameters")
-        temperature = st.slider(
-            "Temperature", min_value=0.01, max_value=5.0, value=0.3, step=0.01
-        )
-        top_p = st.slider("Top P", min_value=0.01, max_value=1.0, value=0.2, step=0.01)
-        max_new_tokens = st.number_input(
-            "Max New Tokens", min_value=1, max_value=1024, value=512
-        )
-        min_new_tokens = st.number_input(
-            "Min New Tokens", min_value=0, max_value=512, value=0
-        )
-        presence_penalty = st.slider(
-            "Presence Penalty", min_value=0.0, max_value=2.0, value=1.15, step=0.05
-        )
-        frequency_penalty = st.slider(
-            "Frequency Penalty", min_value=0.0, max_value=2.0, value=0.2, step=0.05
-        )
-        stop_sequences = st.text_area("Stop Sequences", value="<|im_end|>", height=100)
+    # Set key as env variable (optional if using LangChain or openai library)
+    os.environ["OPENAI_API_KEY"] = openai_api
+
+    st.subheader("🎛️ Adjust Model Parameters")
+
+    temperature = st.slider("Temperature", 0.01, 1.0, 0.5, step=0.01)
+    top_p = st.slider("Top P", 0.01, 1.0, 1.0, step=0.01)
+    max_tokens = st.number_input("Max Tokens", 1, 2048, 512)
+    presence_penalty = st.slider("Presence Penalty", 0.0, 2.0, 0.0, step=0.1)
+    frequency_penalty = st.slider("Frequency Penalty", 0.0, 2.0, 0.0, step=0.1)
+
+    stop_sequences = st.text_area("Stop Sequences (comma-separated)", value="", height=80)
+
+    # Optional: Convert to list if needed
+    stop_list = [s.strip() for s in stop_sequences.split(",") if s.strip()]
     if uploaded_files and not st.session_state["exif_df"].empty:
         with st.expander("🗏 EXIF Details"):
             st.dataframe(st.session_state["exif_df"])
