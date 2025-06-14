@@ -15,7 +15,10 @@ import matplotlib.colors as mcolors
 import plotly.graph_objs as go
 import streamlit.components.v1 as components
 import random
-
+icons = {
+    "assistant": "https://raw.githubusercontent.com/sahirmaharaj/exifa/2f685de7dffb583f2b2a89cb8ee8bc27bf5b1a40/img/assistant-done.svg",
+    "user": "https://raw.githubusercontent.com/sahirmaharaj/exifa/2f685de7dffb583f2b2a89cb8ee8bc27bf5b1a40/img/user-done.svg",
+}
 config = {
     "toImageButtonOptions": {
         "format": "png",
